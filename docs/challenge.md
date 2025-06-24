@@ -23,3 +23,10 @@ I chose to use the top 10 most important features since there was no performance
 
 The resulting model prioritizes recall over precision to minimize false negatives (undetected delayed flights), aligning with the business requirements.
 
+# Part II: API with FastAPI
+
+* I implemented model loading during startup (`@app.on_event("startup")`) instead of per request to minimize prediction latency.
+* I used Pydantic models (`Flight`, `FlightPayload`) for automatic type and structure validation, preventing runtime errors.
+* To keep the `predict()` method signature immutable, I accessed the request body via `inspect.currentframe()`. Although this isn't a standard practice for production, I used it to comply with the constraint of not altering the `post_predict()` method signature.
+
+

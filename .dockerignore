@@ -1,0 +1,37 @@
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile
+.dockerignore
+
+# Cloud
+.gcloudignore
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv
+venv/
+env/
+
+# IDEs and OS
+.idea/
+.vscode/
+*.DS_Store
+
+# Documentation and tests
+README.md
+Makefile
+requirements-dev.txt
+requirements-test.txt
+challenge/exploration.ipynb
+tests/
+reports/
+.github/
+
+# macOS metadata
+__MACOSX

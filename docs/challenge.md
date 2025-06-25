@@ -23,6 +23,7 @@ I chose to use the top 10 most important features since there was no performance
 
 The resulting model prioritizes recall over precision to minimize false negatives (undetected delayed flights), aligning with the business requirements.
 
+
 # Part II: API with FastAPI
 
 * I implemented model loading during startup (`@app.on_event("startup")`) instead of per request to minimize prediction latency.
@@ -30,3 +31,22 @@ The resulting model prioritizes recall over precision to minimize false negative
 * To keep the `predict()` method signature immutable, I accessed the request body via `inspect.currentframe()`. Although this isn't a standard practice for production, I used it to comply with the constraint of not altering the `post_predict()` method signature.
 
 
+# Part III: Deployment on GCP
+
+* I implemented Artifact Registry + Cloud Build instead of local builds to lay a strong foundation for automated CI/CD.
+* Deployed to `southamerica-west1` (Santiago) to minimize latency for end users and comply with data sovereignty requirements.
+
+**Resources**:
+* Artifact Registry: `latam-challenge-repo`
+* Cloud Run Service: `flight-delay-api`
+
+
+# Part IV: CI/CD Automation with GitHub Actions
+
+**CI Pipeline**: I set up automated testing on the `develop` branch for fast feedback during feature development and to prevent regressions before merging.
+
+**CD Pipeline**: I implemented automatic deployment from the `main` branch with:
+
+* Secure authentication via Service Account and GitHub Secrets
+* Automated build and push to Artifact Registry
+* Zero-downtime deployment to Cloud Run

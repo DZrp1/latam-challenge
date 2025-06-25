@@ -1,13 +1,10 @@
 import unittest
 
 from fastapi.testclient import TestClient
-from challenge import app
+from challenge import application as app
 
 
 class TestBatchPipeline(unittest.TestCase):
-    def setUp(self):
-        self.client = TestClient(app)
-        
     def test_should_get_predict(self):
         data = {
             "flights": [
@@ -18,8 +15,8 @@ class TestBatchPipeline(unittest.TestCase):
                 }
             ]
         }
-        # when("xgboost.XGBClassifier").predict(ANY).thenReturn(np.array([0])) # change this line to the model of chosing
-        response = self.client.post("/predict", json=data)
+        with TestClient(app) as client:
+            response = client.post("/predict", json=data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json(), {"predict": [0]})
     
@@ -34,8 +31,8 @@ class TestBatchPipeline(unittest.TestCase):
                 }
             ]
         }
-        # when("xgboost.XGBClassifier").predict(ANY).thenReturn(np.array([0]))# change this line to the model of chosing
-        response = self.client.post("/predict", json=data)
+        with TestClient(app) as client:
+            response = client.post("/predict", json=data)
         self.assertEqual(response.status_code, 400)
 
     def test_should_failed_unkown_column_2(self):
@@ -48,8 +45,8 @@ class TestBatchPipeline(unittest.TestCase):
                 }
             ]
         }
-        # when("xgboost.XGBClassifier").predict(ANY).thenReturn(np.array([0]))# change this line to the model of chosing
-        response = self.client.post("/predict", json=data)
+        with TestClient(app) as client:
+            response = client.post("/predict", json=data)
         self.assertEqual(response.status_code, 400)
     
     def test_should_failed_unkown_column_3(self):
@@ -62,6 +59,6 @@ class TestBatchPipeline(unittest.TestCase):
                 }
             ]
         }
-        # when("xgboost.XGBClassifier").predict(ANY).thenReturn(np.array([0]))
-        response = self.client.post("/predict", json=data)
+        with TestClient(app) as client:
+            response = client.post("/predict", json=data)
         self.assertEqual(response.status_code, 400)

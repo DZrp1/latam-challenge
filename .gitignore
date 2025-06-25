@@ -16,3 +16,8 @@ venv/
 # IDEs and editors
 .idea/
 .vscode/
+
+# Generated artifacts
+models/
+reports/
+.coverage

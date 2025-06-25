@@ -24,10 +24,10 @@ jobs:
         run: |-
           gcloud builds submit . --tag southamerica-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/latam-challenge-repo/flight-delay-api:latest
 
-      - name: Deploy to Cloud Run
+      - name: Build and Deploy to Cloud Run
         run: |-
           gcloud run deploy flight-delay-api \
-            --image southamerica-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/latam-challenge-repo/flight-delay-api:latest \
+            --source . \
             --platform managed \
             --region southamerica-west1 \
             --allow-unauthenticated \

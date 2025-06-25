@@ -1,0 +1,29 @@
+# The .gcloudignore file is used by gcloud source repos push and gcloud builds submit
+
+# Python virtual environment
+.venv
+venv/
+
+# Python cache files
+__pycache__/
+*.pyc
+
+# Git directory
+.git/
+
+# Docker related files
+.dockerignore
+
+# IDE and OS files
+.idea/
+.vscode/
+*.DS_Store
+
+# Local development artifacts
+README.md
+Makefile
+requirements-dev.txt
+requirements-test.txt
+challenge/exploration.ipynb
+tests/
+.github/
